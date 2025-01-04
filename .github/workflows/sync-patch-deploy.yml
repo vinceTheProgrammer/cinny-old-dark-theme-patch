@@ -16,7 +16,7 @@ jobs:
     # Step 2: Apply the patch from your repository
     - name: Apply custom patch
       run: |
-        git apply --whitespace=fix ${{ github.workspace }}/0001-add-old-dark-theme.patch
+        git apply --whitespace=fix ${{ github.workspace }}/dark-theme.patch
         git add .
         git commit -m "Apply custom patch"
 
