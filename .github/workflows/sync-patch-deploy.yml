@@ -42,7 +42,6 @@ jobs:
     # Step 6: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
-      working-directory: ${{ github.workspace }}/cinny
       with:
         branch: gh-pages
-        folder: dist
+        folder: ${{ github.workspace }}/cinny/dist
