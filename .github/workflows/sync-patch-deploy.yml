@@ -5,13 +5,19 @@ jobs:
   update-and-patch:
     runs-on: ubuntu-latest
 
+    - name: Checkout patch repo
+      uses: actions/checkout@v4
+      with:
+        path: main
+
     steps:
     # Step 1: Check out the source (upstream) repository
     - name: Check out upstream repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
-        repository: cinnyapp/cinny # Replace with the actual source repo (e.g., owner/repo)
-        ref: dev # Use the main branch or the desired branch
+        repository: cinnyapp/cinny
+        ref: dev
+        path: './cinny'
 
     # Step 2: Apply the patch from your repository
     - name: Apply custom patch
@@ -22,15 +28,18 @@ jobs:
 
     # Step 3: Install dependencies
     - name: Install dependencies
+      working-directory: ${{ github.workspace }}/cinny
       run: npm ci
 
     # Step 4: Build the project
     - name: Build
+      working-directory: ${{ github.workspace }}/cinny
       run: npm run build
 
     # Step 5: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
+      working-directory: ${{ github.workspace }}/cinny
       with:
         branch: gh-pages
         folder: dist
