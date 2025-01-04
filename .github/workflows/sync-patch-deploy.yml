@@ -1,0 +1,36 @@
+on:
+  workflow_dispatch: # Allows manual triggering
+
+jobs:
+  update-and-patch:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the source (upstream) repository
+    - name: Check out upstream repo
+      uses: actions/checkout@v3
+      with:
+        repository: cinnyapp/cinny # Replace with the actual source repo (e.g., owner/repo)
+        ref: dev # Use the main branch or the desired branch
+
+    # Step 2: Apply the patch from your repository
+    - name: Apply custom patch
+      run: |
+        git apply --whitespace=fix ../0001-add-old-dark-theme.patch
+        git add .
+        git commit -m "Apply custom patch"
+
+    # Step 3: Install dependencies
+    - name: Install dependencies
+      run: npm ci
+
+    # Step 4: Build the project
+    - name: Build
+      run: npm run build
+
+    # Step 5: Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        folder: dist

@@ -1,0 +1,211 @@
+From 5bb98daef2e66c3ed09c64d7f18c507f3564a354 Mon Sep 17 00:00:00 2001
+From: vincetheprogrammer <vincetheprogrammer@gmail.com>
+Date: Fri, 3 Jan 2025 04:58:42 -0600
+Subject: [PATCH] add old dark theme
+
+---
+ src/app/organisms/settings/Settings.jsx |  1 +
+ src/client/state/settings.js            |  8 +--
+ src/colors.css.ts                       | 53 +++++++++++++++
+ src/index.scss                          | 88 +++++++++++++++++++++++++
+ 4 files changed, 146 insertions(+), 4 deletions(-)
+
+diff --git a/src/app/organisms/settings/Settings.jsx b/src/app/organisms/settings/Settings.jsx
+index 6329a57f..9409f91a 100644
+--- a/src/app/organisms/settings/Settings.jsx
++++ b/src/app/organisms/settings/Settings.jsx
+@@ -118,6 +118,7 @@ function AppearanceSection() {
+                 { text: 'Silver' },
+                 { text: 'Dark' },
+                 { text: 'Butter' },
++                {text:'OldDarkTheme'},
+               ]}
+               onSelect={(index) => {
+                 if (settings.useSystemTheme) toggleSystemTheme();
+diff --git a/src/client/state/settings.js b/src/client/state/settings.js
+index bf9562cc..8197a491 100644
+--- a/src/client/state/settings.js
++++ b/src/client/state/settings.js
+@@ -3,7 +3,7 @@ import EventEmitter from 'events';
+ import appDispatcher from '../dispatcher';
+ 
+ import cons from './cons';
+-import { darkTheme, butterTheme, silverTheme } from '../../colors.css';
++import { darkTheme, butterTheme, silverTheme, oldDarkTheme } from '../../colors.css';
+ import { onLightFontWeight, onDarkFontWeight } from '../../config.css';
+ 
+ function getSettings() {
+@@ -23,9 +23,9 @@ class Settings extends EventEmitter {
+   constructor() {
+     super();
+ 
+-    this.themeClasses = [lightTheme, silverTheme, darkTheme, butterTheme];
+-    this.fontWeightClasses = [onLightFontWeight, onLightFontWeight, onDarkFontWeight, onDarkFontWeight]
+-    this.themes = ['', 'silver-theme', 'dark-theme', 'butter-theme'];
++    this.themeClasses = [lightTheme, silverTheme, darkTheme, butterTheme, oldDarkTheme];
++    this.fontWeightClasses = [onLightFontWeight, onLightFontWeight, onDarkFontWeight, onDarkFontWeight, onDarkFontWeight]
++    this.themes = ['', 'silver-theme', 'dark-theme', 'butter-theme', 'old-dark-theme'];
+     this.themeIndex = this.getThemeIndex();
+ 
+     this.useSystemTheme = this.getUseSystemTheme();
+diff --git a/src/colors.css.ts b/src/colors.css.ts
+index c4f122d2..119afd99 100644
+--- a/src/colors.css.ts
++++ b/src/colors.css.ts
+@@ -236,3 +236,56 @@ export const butterTheme = createTheme(color, {
+     OnContainer: '#F2EED3',
+   },
+ });
++
++export const oldDarkTheme = createTheme(color, {
++  ...darkThemeData,
++  Background: {
++    Container: 'hsl(208, 8%, 20%)',
++    ContainerHover: 'hsl(208, 8%, 16%)',
++    ContainerActive: 'hsl(208, 8%, 14%)',
++    ContainerLine: 'hsl(208, 8%, 14%)',
++    OnContainer: '#ffffff',
++  },
++
++  Surface: {
++    Container: 'hsl(208, 8%, 16%)',
++    ContainerHover: 'hsl(208, 8%, 14%)',
++    ContainerActive: 'hsl(208, 8%, 14%)',
++    ContainerLine: 'hsl(208, 8%, 14%)',
++    OnContainer: '#ffffff',
++  },
++
++  SurfaceVariant: {
++    Container: 'hsl(208, 8%, 14%)',
++    ContainerHover: 'hsl(208, 8%, 14%)',
++    ContainerActive: 'hsl(208, 8%, 14%)',
++    ContainerLine: 'hsl(208, 8%, 14%)',
++    OnContainer: '#ffffff',
++  },
++
++  Primary: {
++    Main: 'rgb(42, 98, 166)',
++    MainHover: 'rgba(42, 98, 166, 80%)',
++    MainActive: 'rgba(42, 98, 166, 70%)',
++    MainLine: 'rgba(42, 98, 166, 38%)',
++    OnMain: '#ffffff',
++    Container: 'hsl(208, 8%, 16%)',
++    ContainerHover: 'hsl(208, 8%, 14%)',
++    ContainerActive: 'hsl(208, 8%, 14%)',
++    ContainerLine: 'hsl(208, 8%, 14%)',
++    OnContainer: '#ffffff',
++  },
++
++  Secondary: {
++    Main: 'rgba(255, 255, 255, 84%)',
++    MainHover: 'rgba(255, 255, 255, 68%)',
++    MainActive: 'rgba(255, 255, 255, 40%)',
++    MainLine: 'rgba(255, 255, 255, 84%)',
++    OnMain: '#ffffff',
++    Container: 'hsl(208, 8%, 14%)',
++    ContainerHover: 'hsl(208, 8%, 14%)',
++    ContainerActive: 'hsl(208, 8%, 14%)',
++    ContainerLine: 'hsl(208, 8%, 14%)',
++    OnContainer: '#ffffff',
++  },
++});
+diff --git a/src/index.scss b/src/index.scss
+index 1c223051..9aae9846 100644
+--- a/src/index.scss
++++ b/src/index.scss
+@@ -514,3 +514,91 @@ audio:not([controls]) {
+   justify-content: center;
+   align-items: center;
+ }
++
++.old-dark-theme {
++  /* background color | --bg-[background type]: value */
++  --bg-surface: hsl(208, 8%, 20%);
++  --bg-surface-transparent: hsla(208, 8%, 20%, 0);
++  --bg-surface-low: hsl(208, 8%, 16%);
++  --bg-surface-low-transparent: hsla(208, 8%, 16%, 0);
++  --bg-surface-extra-low: hsl(208, 8%, 14%);
++  --bg-surface-extra-low-transparent: hsla(208, 8%, 14%, 0);
++  --bg-surface-hover: rgba(255, 255, 255, 3%);
++  --bg-surface-active: rgba(255, 255, 255, 5%);
++  --bg-surface-border: rgba(0, 0, 0, 20%);
++
++  --bg-primary: rgb(42, 98, 166);
++  --bg-primary-hover: rgba(42, 98, 166, 80%);
++  --bg-primary-active: rgba(42, 98, 166, 70%);
++  --bg-primary-border: rgba(42, 98, 166, 38%);
++
++  --bg-tooltip: #000;
++  --bg-badge: hsl(0, 0%, 75%);
++  --bg-ping: hsla(137deg, 100%, 38%, 40%);
++  --bg-ping-hover: hsla(137deg, 100%, 38%, 50%);
++  --bg-divider: hsla(0, 0%, 100%, .1);
++
++
++  /* text color | --tc-[background type]-[priority]: value */
++  --tc-surface-high: rgba(255, 255, 255, 98%);
++  --tc-surface-normal: rgba(255, 255, 255, 94%);
++  --tc-surface-normal-low: rgba(255, 255, 255, 60%);
++  --tc-surface-low: rgba(255, 255, 255, 58%);
++  
++  --tc-primary-high: #ffffff;
++  --tc-primary-normal: rgba(255, 255, 255, 0.68);
++  --tc-primary-low: rgba(255, 255, 255, 0.4);
++
++  --tc-code: #e565b1;
++  --tc-link: hsl(213deg 94% 73%);
++  --tc-badge: black;
++
++  /* system icons | --ic-[background type]-[priority]: value */
++  --ic-surface-high: rgb(255, 255, 255);
++  --ic-surface-normal: rgba(255, 255, 255, 84%);
++  --ic-surface-low: rgba(255, 255, 255, 64%);
++  --ic-primary-normal: #ffffff;
++
++  & .text {
++    /* override user mxid colors for texts */
++    --mx-uc-1: hsl(208, 100%, 58%);
++    --mx-uc-2: hsl(301, 80%, 70%);
++    --mx-uc-3: hsl(163, 93%, 41%);
++    --mx-uc-4: hsl(343, 91%, 66%);
++    --mx-uc-5: hsl(24, 90%, 67%);
++    --mx-uc-6: hsl(181, 90%, 50%);
++    --mx-uc-7: hsl(243, 100%, 74%);
++    --mx-uc-8: hsl(94, 66%, 50%);
++  }
++  
++  /* shadow and overlay */
++  --bg-overlay: rgba(0, 0, 0, 60%);
++  --bg-overlay-low: rgba(0, 0, 0, 80%);
++
++  --bs-popup: 0 0 16px rgba(0, 0, 0, 25%);
++
++  --bs-surface-border: inset 0 0 0 1px var(--bg-surface-border);
++  --bs-surface-outline: 0 0 0 2px var(--bg-surface-border);
++
++  --bs-primary-border: inset 0 0 0 1px var(--bg-primary-border);
++  --bs-primary-outline: 0 0 0 2px var(--bg-primary-border);
++  
++  /* font styles: font-size, letter-spacing, line-hight */
++  --fs-h1: 35.6px;
++
++  --fs-h2: 23.6px;
++
++  --fs-s1: 17.6px;
++
++  --fs-b1: 14.6px;
++  --ls-b1: 0.14px;
++
++  --fs-b2: 13.2px;
++
++  --fs-b3: 11.2px;
++
++  /* override normal font weight for dark mode */
++  --fw-normal: 350;
++
++  --font-secondary: 'InterVariable', 'Roboto', sans-serif;
++}
+\ No newline at end of file
+-- 
+2.47.1
+
