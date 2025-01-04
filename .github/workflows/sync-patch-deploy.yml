@@ -45,6 +45,10 @@ jobs:
       working-directory: ${{ github.workspace }}/cinny
       run: npm run build
 
+    # Step 5.5: Echo cinny path (debug)
+    - name: Debug
+      run: echo "${{ github.workspace }}/cinny"
+
     # Step 6: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
