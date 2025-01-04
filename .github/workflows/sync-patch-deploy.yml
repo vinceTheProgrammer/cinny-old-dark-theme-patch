@@ -17,7 +17,7 @@ jobs:
     - name: Checkout patch repo
       uses: actions/checkout@v4
       with:
-        path: main
+        ref: main
 
     # Step 2: Check out the source (upstream) repository
     - name: Check out upstream repo
@@ -31,7 +31,7 @@ jobs:
     - name: Apply custom patch
       working-directory: ${{ github.workspace }}/cinny
       run: |
-        git apply --whitespace=fix ${{ github.workspace }}/main/dark-theme.patch
+        git apply --whitespace=fix ${{ github.workspace }}/dark-theme.patch
         git add .
         git commit -m "Apply custom patch"
 
@@ -50,4 +50,4 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
-        folder: ./cinny/dist
+        folder: ${{ github.workspace }}/cinny/dist
