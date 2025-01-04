@@ -32,6 +32,7 @@ jobs:
       working-directory: ${{ github.workspace }}/cinny
       run: |
         git apply --whitespace=fix ${{ github.workspace }}/dark-theme.patch
+        git apply --whitespace=fix ${{ github.workspace }}/baseurl.patch
         git add .
         git commit -m "Apply custom patch"
 

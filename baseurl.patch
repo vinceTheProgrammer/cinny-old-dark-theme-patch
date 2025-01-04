@@ -1,0 +1,21 @@
+From 92a89801897a01af0eb0d8bd0f34ea511a8834e9 Mon Sep 17 00:00:00 2001
+From: vincetheprogrammer <vincetheprogrammer@gmail.com>
+Date: Sat, 4 Jan 2025 03:04:37 -0600
+Subject: [PATCH] change vite baseurl
+
+---
+ build.config.ts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.config.ts b/build.config.ts
+index ec8a41d0..ec3b100c 100644
+--- a/build.config.ts
++++ b/build.config.ts
+@@ -1,3 +1,3 @@
+ export default {
+-  base: '/',
++  base: '/cinny-old-dark-theme-patch',
+ };
+-- 
+2.47.1
+
