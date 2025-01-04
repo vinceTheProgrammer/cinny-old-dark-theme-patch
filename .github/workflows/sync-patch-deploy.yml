@@ -25,7 +25,7 @@ jobs:
     - name: Apply custom patch
       working-directory: ${{ github.workspace }}/cinny
       run: |
-        git apply --whitespace=fix ${{ github.workspace }}/dark-theme.patch
+        git apply --whitespace=fix ${{ github.workspace }}/main/dark-theme.patch
         git add .
         git commit -m "Apply custom patch"
 
