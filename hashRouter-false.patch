@@ -1,0 +1,25 @@
+From a1ecd6cbaa425917f5839ff35cb77b1541dd1c42 Mon Sep 17 00:00:00 2001
+From: vincetheprogrammer <vincetheprogrammer@gmail.com>
+Date: Sat, 4 Jan 2025 03:59:20 -0600
+Subject: [PATCH] set hashRouter to false
+
+---
+ config.json | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/config.json b/config.json
+index de6015a1..7b69ce21 100644
+--- a/config.json
++++ b/config.json
+@@ -32,7 +32,7 @@
+   },
+ 
+   "hashRouter": {
+-    "enabled": false,
++    "enabled": true,
+     "basename": "/"
+   }
+ }
+-- 
+2.47.1
+

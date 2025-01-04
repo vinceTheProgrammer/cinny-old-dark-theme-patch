@@ -33,6 +33,7 @@ jobs:
       run: |
         git apply --whitespace=fix ${{ github.workspace }}/dark-theme.patch
         git apply --whitespace=fix ${{ github.workspace }}/baseurl.patch
+        git apply --whitespace=fix ${{ github.workspace }}/hashRouter-false.patch
         git add .
         git commit -m "Apply custom patch"
 
@@ -46,14 +47,7 @@ jobs:
       working-directory: ${{ github.workspace }}/cinny
       run: npm run build
 
-    # Step 6: Move olm.wasm to ./home
-    - name: Move olm.wasm
-      working-directory: ${{ github.workspace }}/cinny/dist
-      run: |
-        mkdir home
-        mv ./olm.wasm ./home/olm.wasm
-
-    # Step 7: Deploy to GitHub Pages
+    # Step 6: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
