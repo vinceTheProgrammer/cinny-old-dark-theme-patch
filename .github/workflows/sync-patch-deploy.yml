@@ -7,6 +7,12 @@ jobs:
 
     steps:
 
+    # Step 0: Set git identity
+    - name: Set git config
+      run: |
+        git config --global user.email "vincetheprogrammer@gmail.com"
+        git config --global user.name "vinceTheProgrammer"
+
     # Step 1: Check out this repository
     - name: Checkout patch repo
       uses: actions/checkout@v4
